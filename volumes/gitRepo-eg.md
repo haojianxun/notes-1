@@ -42,7 +42,7 @@
     [root@docker1:~ ]# kubectl  get pods  -o wide
     NAME                             READY   STATUS    RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES
     pod-demo                         3/3     Running   0          51m     10.244.1.40   docker2   <none>           <none>
-######    pod-demo-gitrepo                 2/2     Running   0          11m     10.244.1.41   docker2   <none>           <none>
+    **pod-demo-gitrepo                 2/2     Running   0          11m     10.244.1.41   docker2   <none>           <none>**
     pod-vol-emptydir                 1/1     Running   1          21h     10.244.2.35   docker3   <none>           <none>
     tomcat-deploy-8475677b49-fc722   1/1     Running   0          4h12m   10.244.2.39   docker3   <none>           <none>
     tomcat-deploy-8475677b49-nrd5m   1/1     Running   0          4h12m   10.244.2.38   docker3   <none>           <none>
@@ -58,7 +58,7 @@
     GeoIP  man    misc   nginx
     /usr/share # cd nginx/html/
     /usr/share/nginx/html # ls
-######    Dockerfile  README.md   haha        index.html
+    Dockerfile  README.md   haha        index.html
     
     
   与我github仓库内容一致。
