@@ -2,6 +2,8 @@
 #### emptyDir有2个字段，medium和medium
 #### emptyDir: {}  表示使用默认值，而不是不定义其子字段。
 #### emptyDir需要在pods的volumes中定义，在containers中通过volumesMounts字段挂载使用。
+#### 删除 Pod 时，emptyDir存储卷中的数据将被永久删除。但是如果容器崩溃了，pod不被删除，emptyDir卷中数据存在。
+
 
 **创建emptyDir配置文件**
 
