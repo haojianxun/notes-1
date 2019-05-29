@@ -58,3 +58,25 @@ pod-pvc-pv之间的关系：
 
 pod与pvc关系：
       https://github.com/cxhzcxhz/notes/blob/master/kubernetes/volumes/images/pod%E4%B8%8Epvc%E5%A4%9A%E5%AF%B9%E4%B8%80%E7%BB%91%E5%AE%9A%E5%85%B3%E7%B3%BB.png
+
+
+### 使用pvc存储卷，需要在kubernetes中提前定义好pv资源。
+#### 定义nfs格式的pv示例：
+前提准备，这里使用nfs server将共享的几个目录定义为pv。准备工作如下：
+
+      [root@docker1:/data/volumes ]# mkdir -p {v1,v2,v3,v4,v5}
+      [root@docker1:/data/volumes ]# cat /etc/exports
+      /data/volumes/v1 192.168.12.0/24(rw,no_root_squash)
+      /data/volumes/v2 192.168.12.0/24(rw,no_root_squash)
+      /data/volumes/v3 192.168.12.0/24(rw,no_root_squash)
+      /data/volumes/v4 192.168.12.0/24(rw,no_root_squash)
+      /data/volumes/v5 192.168.12.0/24(rw,no_root_squash)
+      [root@docker1:/data/volumes ]# systemctl  restart nfs
+      [root@docker1:/data/volumes ]# showmount  -e docker1
+      Export list for docker1:
+      /data/volumes/v5 192.168.12.0/24
+      /data/volumes/v4 192.168.12.0/24
+      /data/volumes/v3 192.168.12.0/24
+      /data/volumes/v2 192.168.12.0/24
+      /data/volumes/v1 192.168.12.0/24
+
