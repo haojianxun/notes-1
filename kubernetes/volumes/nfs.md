@@ -83,5 +83,18 @@
     this is nfs server index
 
 
+现在删除pod-vol-nfs，将docker2节点关机，重新apply配置文件，结果为：
+    
+    [root@docker1:~/mainfests/volumes ]# kubectl  get pods -o wide
+    NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES
+    pod-vol-nfs                      1/1     Running   0          24s   10.244.2.51   docker3   <none>           <none>
+    tomcat-deploy-8475677b49-fc722   1/1     Running   1          27h   10.244.2.45   docker3   <none>           <none>
+    tomcat-deploy-8475677b49-nrd5m   1/1     Running   1          27h   10.244.2.46   docker3   <none>           <none>
+    tomcat-deploy-8475677b49-tbx42   1/1     Running   1          26h   10.244.2.47   docker3   <none>           <none>
+    [root@docker1:~/mainfests/volumes ]# curl 10.244.2.51
+    this is nfs server index
+
+使用nfs存储卷，只要node节点使用相同的nfs存储卷，无论调度到哪个节点，使用的都是相同的信息。
+
 
 
