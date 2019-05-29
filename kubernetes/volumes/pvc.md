@@ -24,10 +24,11 @@ pvc需要绑定哪个pv，决定于创建pod时，需要使用多大的存储空
            another type of volume that is owned by someone else (the system).
 
       FIELDS:
-         claimName	<string> -required-
+         claimName	<string> -required-    #pod使用claimName字段与pvc建立关系。
            ClaimName is the name of a PersistentVolumeClaim in the same namespace as
            the pod using this volume. More info:
            https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
          readOnly	<boolean>
            Will force the ReadOnly setting in VolumeMounts. Default false.
+     **claimName：表示pod使用此字段定义的名称与pvc建立关联关系。**
