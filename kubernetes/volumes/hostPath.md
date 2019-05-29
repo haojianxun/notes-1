@@ -3,12 +3,13 @@
 > hostPath有2个子字段，path、type
 >>  path：用来表示宿主机上的路径信息
 
->>  type：用来指定hostPath存储卷类型
+    type：用来指定hostPath存储卷类型
 
->>  type支持的字段值有；
+    type支持的字段值有；
 
 >>>   DirectoryOrCreate：如果path指定的目录路径不存在，则创建一个空目录，且权限为0755，与kubelet拥有相同的属主属组。
->>>   Directory：指定path路径必须存在，否则启动失败。
+
+      Directory：指定path路径必须存在，否则启动失败。
       FileOrCreate：如果path指定的文件路径不存在，则创建一个空文件，且权限为0644，与kubelet拥有相同的属组属主。
       File：path指定的文件必须存在，否则启动报错。
       Socket：path指定的unix socket路径必须存在。
