@@ -45,6 +45,7 @@
         docker2.magedu.com
         [root@docker3 ~]# cat /data/pod/volume1/index.html 
         docker3.magedu.com
+如果创建的pod-vol-hostpath，被调度到不同节点，访问主页会有不同的内容。
 
 查看创建的pod信息，并在集群任意节点访问pod的ip，是否为我们期望的内容，
 
@@ -58,6 +59,9 @@
     [root@docker1:~ ]# curl 10.244.1.46
     docker2.magedu.com
 
+结果为：pod被调度到docker2节点，主页为docker2.magedu.com
+
+### 使用hostPath存储卷，数据是保存到宿主机本地，即使删除掉现在的pod，新创建的pod如果能调度到此节点上来还是可以访问存储卷中的数据。
 
 
 
