@@ -8,6 +8,7 @@
   RESOURCE: nfs <Object>
 
   DESCRIPTION:
+  
        NFS represents an NFS mount on the host that shares a pod's lifetime More
        info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 
@@ -15,6 +16,7 @@
        not support ownership management or SELinux relabeling.
 
   FIELDS:
+  
      path	<string> -required-
        Path that is exported by the NFS server. More info:
        https://kubernetes.io/docs/concepts/storage/volumes#nfs
