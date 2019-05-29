@@ -52,3 +52,9 @@ spec字段常用子字段有：
 pod与pvc存储卷是多对一绑定关系，可被多个pods使用。（具体能不能还是要看accessModes的设置）
 
 #### 注意： pv是kubernetes集群中的资源，不属于某pod的名称空间。  pvc属于某个pod的名称空间。
+
+pod-pvc-pv之间的关系：
+      https://github.com/cxhzcxhz/notes/blob/master/kubernetes/volumes/images/pod-pvc-pv.png
+
+pod与pvc关系：
+      https://github.com/cxhzcxhz/notes/blob/master/kubernetes/volumes/images/pod%E4%B8%8Epvc%E5%A4%9A%E5%AF%B9%E4%B8%80%E7%BB%91%E5%AE%9A%E5%85%B3%E7%B3%BB.png
