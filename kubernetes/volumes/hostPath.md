@@ -18,3 +18,47 @@
 #####      CharDevice：path指定的路径必须是个字符设备。
       
 #####      BlockDevice：path指定的路径必须是个块设备。
+
+创建hostPath存储卷示例：
+   [root@docker1:~/mainfests/volumes ]# cat  pod-hostpath-vol.yaml 
+    apiVersion: v1
+    kind: Pod
+    metadata:
+       name: pod-vol-hostpath
+       namespace: default
+    spec:
+       containers:
+       - name: myapp
+         image: ikubernetes/myapp:v1
+         volumeMounts:
+         - name: html
+           mountPath: /usr/share/nginx/html/
+       volumes:
+       - name: html
+         hostPath: 
+            path: /data/pod/volume1
+            type: Directory 
+ 
+在node节点docker2、docker3上，提前准备好宿主机目录路径，并创建index.html文件。
+        [root@docker2 ~]# cat  /data/pod/volume1/index.html
+        docker2.magedu.com
+        [root@docker3 ~]# cat /data/pod/volume1/index.html 
+        docker3.magedu.com
+
+查看创建的pod信息，并在集群任意节点访问pod的ip，是否为我们期望的内容，
+    [root@docker1:~ ]# kubectl  get pods -o wide
+    NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES
+    pod-vol-hostpath                 1/1     Running   0          16s   10.244.1.46   docker2   <none>           <none>
+    tomcat-deploy-8475677b49-fc722   1/1     Running   1          24h   10.244.2.45   docker3   <none>           <none>
+    tomcat-deploy-8475677b49-nrd5m   1/1     Running   1          24h   10.244.2.46   docker3   <none>           <none>
+    tomcat-deploy-8475677b49-tbx42   1/1     Running   1          22h   10.244.2.47   docker3   <none>           <none>
+    
+    [root@docker1:~ ]# curl 10.244.1.46
+    docker2.magedu.com
+
+
+
+
+
+
+
