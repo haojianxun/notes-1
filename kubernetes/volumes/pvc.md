@@ -31,4 +31,4 @@ pvc需要绑定哪个pv，决定于创建pod时，需要使用多大的存储空
 
          readOnly	<boolean>
            Will force the ReadOnly setting in VolumeMounts. Default false.
-     **claimName：表示pod使用此字段定义的名称与pvc建立关联关系。**
+   **claimName：表示pod使用此字段定义的名称与pvc建立关联关系。**
