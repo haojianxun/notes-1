@@ -40,12 +40,14 @@
             type: Directory 
  
 在node节点docker2、docker3上，提前准备好宿主机目录路径，并创建index.html文件。
+
         [root@docker2 ~]# cat  /data/pod/volume1/index.html
         docker2.magedu.com
         [root@docker3 ~]# cat /data/pod/volume1/index.html 
         docker3.magedu.com
 
 查看创建的pod信息，并在集群任意节点访问pod的ip，是否为我们期望的内容，
+
     [root@docker1:~ ]# kubectl  get pods -o wide
     NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES
     pod-vol-hostpath                 1/1     Running   0          16s   10.244.1.46   docker2   <none>           <none>
