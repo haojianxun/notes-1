@@ -304,3 +304,16 @@ pod与pvc关系：
       Events:          <none>
 
 pod-vol-pvc的mounts路径 /usr/share/nginx/html/的volumes名称为html，html的类型为PersistentVolumeClaim,pvc名称为mypvc。
+
+#### 访问测试
+
+在pv005的目录中，手动创建文件测试
+
+      [root@docker1:/data/volumes/v5 ]# pwd
+      /data/volumes/v5
+      [root@docker1:/data/volumes/v5 ]# cat index.html 
+      this is v5 index
+访问pod-vol-pvc的ip，结果为：
+
+      [root@docker1:/data/volumes/v5 ]# curl 10.244.2.55
+      this is v5 index
