@@ -61,7 +61,8 @@ pod与pvc关系：
 
 
 ### 使用pvc存储卷，需要在kubernetes中提前定义好pv资源。
-#### 定义nfs格式的pv示例：
+#### 制作pvc存储卷示例：
+##### 第一步：定义nfs格式的pv示例：
 前提准备，这里使用nfs server将共享的几个目录定义为pv。准备工作如下：
 
       [root@docker1:/data/volumes ]# mkdir -p {v1,v2,v3,v4,v5}
@@ -79,4 +80,113 @@ pod与pvc关系：
       /data/volumes/v3 192.168.12.0/24
       /data/volumes/v2 192.168.12.0/24
       /data/volumes/v1 192.168.12.0/24
+然后其他node节点挂载共享目录。
+
+创建pv配置文件，在kubernetes集权中创建pv资源，示例：
+
+      [root@docker1:~/mainfests/volumes ]# cat pv-demo.yaml 
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: pv001
+        labels:
+          name: pv001
+      spec:
+        nfs:
+          path: /data/volumes/v1
+          server: 192.168.12.155
+        accessModes: ["ReadWriteMany","ReadWriteOnce"]
+        capacity:
+          storage: 2Gi
+      ---
+
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: pv002
+        labels:
+          name: pv002
+      spec:
+        nfs:
+          path: /data/volumes/v2
+          server: 192.168.12.155
+        accessModes: ["ReadWriteOnce"]
+        capacity:
+          storage: 5Gi
+      ---
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: pv003
+        labels:
+          name: pv003
+      spec:
+        nfs:
+          path: /data/volumes/v3
+          server: 192.168.12.155
+        accessModes: ["ReadWriteMany","ReadWriteOnce"]
+        capacity:
+          storage: 20Gi
+      ---
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: pv004
+        labels:
+          name: pv004
+      spec:
+        nfs:
+          path: /data/volumes/v4
+          server: 192.168.12.155
+        accessModes: ["ReadWriteMany","ReadWriteOnce"]
+        capacity:
+          storage: 10Gi
+      ---
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: pv005
+        labels:
+          name: pv005
+      spec:
+        nfs:
+          path: /data/volumes/v5
+          server: 192.168.12.155
+        accessModes: ["ReadWriteMany","ReadWriteOnce"]
+        capacity:
+          storage: 10Gi
+      ---
+
+创建并查看的pv，命令：
+      
+      [root@docker1:~/mainfests/volumes ]# kubectl apply -f pv-demo.yaml 
+      persistentvolume/pv001 created
+      persistentvolume/pv002 created
+      persistentvolume/pv003 created
+      persistentvolume/pv004 created
+      persistentvolume/pv005 created
+      
+      [root@docker1:~ ]# kubectl  get pv
+      NAME    CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+      pv001   2Gi        RWO,RWX        Retain           Available                                   3s
+      pv002   5Gi        RWO            Retain           Available                                   3s
+      pv003   20Gi       RWO,RWX        Retain           Available                                   3s
+      pv004   10Gi       RWO,RWX        Retain           Available                                   3s
+      pv005   10Gi       RWO,RWX        Retain           Available                                   3s
+
+到此已经完成了创建pv过程。
+
+知识点：
+
+      Pv的访问模式：https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
+            访问模式是：
+                  ReadWriteOnce - 卷可以由单个节点以读写方式挂载
+                  ReadOnlyMany - 卷可以由许多节点以只读方式挂载
+                  ReadWriteMany - 卷可以由许多节点以读写方式挂载
+      
+##### 第二步：定义pvc配置文件，示例：
+
+
+
+
 
